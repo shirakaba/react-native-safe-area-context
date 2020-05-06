@@ -75,28 +75,17 @@ function getSupportedTransitionEvent(): string {
   return _supportedTransitionEvent;
 }
 
-type CssEnv = 'constant' | 'env';
-
-let _supportedEnv: CssEnv | null = null;
-function getSupportedEnv(): CssEnv {
-  if (_supportedEnv !== null) {
-    return _supportedEnv;
+function getInset(side: "top"|"bottom"|"left"|"right"): string {
+  switch (side) {
+    case "top":
+      return "36px";
+    case "bottom":
+      return "36px";
+    case "left":
+      return "128px";
+    case "right":
+      return "128px";
   }
-  const { CSS } = window;
-  if (
-    CSS &&
-    CSS.supports &&
-    CSS.supports('top: constant(safe-area-inset-top)')
-  ) {
-    _supportedEnv = 'constant';
-  } else {
-    _supportedEnv = 'env';
-  }
-  return _supportedEnv;
-}
-
-function getInset(side: string): string {
-  return `${getSupportedEnv()}(safe-area-inset-${side})`;
 }
 
 function createContextElement(): HTMLElement {
